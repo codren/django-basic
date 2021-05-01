@@ -3,6 +3,7 @@ from django.db import models
 class User(models.Model):
     username = models.CharField(verbose_name='사용자명', max_length=64)
     password = models.CharField(verbose_name='비밀번호', max_length=64)
+    emial = models.EmailField(verbose_name='이메일', max_length=128)
     registered_dttm = models.DateTimeField(verbose_name='등록시간', auto_now_add=True)
 
     def __str__(self):
