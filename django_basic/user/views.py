@@ -52,6 +52,12 @@ def login(request):
 
     return render(request, 'login.html', res_data)
 
+
+
+def logout(request):
+    if request.session.get('user'):
+        del(request.session['user'])
+    return redirect('/')
         
 def home(request):
     user_id = request.session.get('user')
