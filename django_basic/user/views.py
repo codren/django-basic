@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import User
+from user.models import User
 from django.http import HttpResponse
 from django.contrib.auth.hashers import make_password, check_password
 from .forms import LoginForm
@@ -22,7 +22,7 @@ def register(request):
         else:
             user = User(
                 username=username,
-                 email=emial,
+                 email=email,
                 password=make_password(password)
             )
             user.save()
@@ -47,7 +47,9 @@ def logout(request):
         
 def home(request):
     user_id = request.session.get('user')
+    ret_data ={}
+
     if user_id:
-        user = User.objects.get(pk=user_id)
-        return HttpResponse(user.username)
-    return HttpResponse('home!')
+        ret_data['username'] = User.objects.get(pk=user_id)
+    
+    return render(request, 'home.html', ret_data)
